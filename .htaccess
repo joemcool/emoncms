@@ -210,6 +210,11 @@ AddDefaultCharset utf-8
 
 </FilesMatch>
 
+<Files auxInput.php>
+    # LOCAL AND LAN ACCESS ONLY
+    Require ip 10 172 192.168
+</Files>
+
 # protect phpinfo, only allow localhost and local network access
 <Files php-info.php>
     # LOCAL ACCESS ONLY
