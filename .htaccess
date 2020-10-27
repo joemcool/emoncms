@@ -8,6 +8,10 @@ DirectoryIndex index.php
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
+
+  # Rewrite URLs to use HTTPS if not doing so already
+  RewriteCond %{HTTPS} !=on
+  RewriteRule (.*) https://%{SERVER_NAME}/$1 [redirect=301,l]
  
   #RewriteBase /sites/emon/
   RewriteRule ^emoncms/(.*)$ $1 [L]
