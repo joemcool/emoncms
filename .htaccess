@@ -11,7 +11,14 @@ DirectoryIndex index.php
 
   # Rewrite URLs to use HTTPS if not doing so already
   RewriteCond %{HTTPS} !=on
-  RewriteRule (.*) https://%{SERVER_NAME}/$1 [redirect=301,l]
+
+  # Exempt input API, since some devices can't do HTTPS
+  RewriteCond %{REQUEST_URI} !input/post$
+  RewriteCond %{QUERY_STRING} !input/post$
+  RewriteCond %{REQUEST_URI} !input/bulk$
+  RewriteCond %{QUERY_STRING} !input/bulk$
+
+  RewriteRule (.*) https://%{SERVER_NAME}/emoncms/$1 [redirect=301,L]
  
   #RewriteBase /sites/emon/
   RewriteRule ^emoncms/(.*)$ $1 [L]
